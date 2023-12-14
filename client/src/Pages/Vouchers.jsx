@@ -25,6 +25,7 @@ const Vouchers = () => {
       const res = await axios.post(`http://localhost:8000/api/v1/voucher/create-voucher/`, { name: newVoucherName});
       if (res.data.success) {
         toast.success(res.data.message);
+        setNewVoucherName('');
         fetchVouchers();
       }
       else {

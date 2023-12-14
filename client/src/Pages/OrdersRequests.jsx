@@ -27,11 +27,10 @@ const OrdersRequests = () => {
 
         socket.on('update', () => {
             handleFetchServiceRequest();
-            console.log("");
         });
 
         return () => {
-            socket.disconnect();
+            // socket.disconnect();
         };
 
     }, []);

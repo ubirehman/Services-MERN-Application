@@ -3,13 +3,18 @@ import Voucher from '../Model/Voucher.js';
 
 export const createVoucherController = async (req, res) => {
     try {
-        const { name, code } = req.body;
+        const { name } = req.body;
         if (!name) return res.status(400).send({ success: false, message: 'Please enter voucher name ' });
-        if (!code) return res.status(400).send({ success: false, message: 'Please enter voucher code' });
 
-        const voucher = await new Voucher({ name, code, slug: slugify(name) });
-        voucher.save();
+        const checkExisting = await Voucher.findOne({ name });
 
+        if (checkExisting) return res.status(403).send({
+            success: false,
+            message: 'Category with same name already exist'
+        })
+
+        const voucher = await new Voucher({ name, slug: slugify(name) });
+        await voucher.save();
         if (!voucher) {
             return res.status(400).send({
                 success: false,

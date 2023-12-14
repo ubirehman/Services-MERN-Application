@@ -4,7 +4,6 @@ const VoucherSchema = mongoose.Schema({
     name: {
         type: String,
         require: true,
-        unique: true
     },
     redeemcount: {
         type: Number,

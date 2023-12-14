@@ -33,7 +33,7 @@ const expressServer = app.listen(process.env.PORT || 8080, () => {
     ConnectDB();
     console.log("Server is running");
 });
-export const io = new Server(expressServer, { cors: {}});
+export const io = new Server(expressServer, { cors: { origin: '*'}});
 
 
 io.on('connection', socket => {

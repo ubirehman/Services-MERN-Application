@@ -23,6 +23,7 @@ function App() {
         <Route path='vouchers' element={<Vouchers />} />
         <Route path='dashboard' element={<Dashboard />} />
       </Route >
+      <Route path='/*' element={<Home/>}></Route>
     </Routes>
   );
 }

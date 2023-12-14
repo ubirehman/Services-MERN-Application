@@ -8,14 +8,14 @@ const Header = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        setAuth({
-            user: null,
-            token: ''
-        });
-        localStorage.removeItem('auth');
         toast.info('Logout successfully');
 
         setTimeout(() => {
+            setAuth({
+                user: null,
+                token: ''
+            });
+            localStorage.removeItem('auth');
             navigate('/');
         }, 2000);
     }

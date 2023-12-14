@@ -11,8 +11,8 @@ const Home = () => {
   })
   return (
     <Layout>
-      <div className='flex bg-cyan-200'>
-        <img src='' />
+      <div className='relative w-full max-h-[595px] overflow-hidden '>
+        <img className='blur-sm object-cover w-full h-full' src='https://images.pexels.com/photos/518244/pexels-photo-518244.jpeg' />
       </div>
     </Layout>
   )

@@ -55,7 +55,7 @@ export const registerUserController = async (req, res, next) => {
         const hashedPassword = await passwordHash(password);
         const user = await new User({ name, username, email, password: hashedPassword });
         if (user) {
-            user.save();
+           await user.save();
 
             const { password, ...other } = user._doc;
 

@@ -37,10 +37,9 @@ export const createNewServiceOrderController = async (req, res, next) => {
             });
         }
 
-        newServiceRequest.save();
+       await newServiceRequest.save();
 
-
-       io.emit('update','test');
+        io.emit('update', 'temp');
 
         return res.status(201).send({
             success: true,
@@ -67,6 +66,63 @@ export const getAllServiceOrderRequestsController = async (req, res, next) => {
                 success: true,
                 message: 'All service requests fetched',
                 serviceOrderRequests
+            });
+        }
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(400).send({
+            success: false,
+            message: 'Something went wrong with fetching service order',
+            error
+        });
+    }
+}
+
+
+
+export const getAllServiceOrderRequestsChartController = async (req, res, next) => {
+    try {
+        const serviceOrderRequestsChart = await Service.aggregate([{
+            $group: {
+                _id: '$status',
+                count: { $sum: 1 },
+            },
+        }]);
+
+        if (serviceOrderRequestsChart) {
+            return res.status(200).send({
+                success: true,
+                message: 'All service requests fetched',
+                serviceOrderRequestsChart
+            });
+        }
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(400).send({
+            success: false,
+            message: 'Something went wrong with fetching service order',
+            error
+        });
+    }
+}
+
+
+export const getRepeatingCustomerOrderController = async (req, res, next) => {
+    try {
+        const orderRepeatingCustomers = await Service.aggregate([{
+            $group: {
+                _id: '$userId',
+                count: { $sum: 1 },
+            },
+        }]);
+
+        if (orderRepeatingCustomers) {
+            return res.status(200).send({
+                success: true,
+                message: 'All repeating order customers fetched',
+                orderRepeatingCustomers
             });
         }
     }

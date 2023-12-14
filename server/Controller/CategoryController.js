@@ -15,7 +15,7 @@ export const createCategoryController = async (req, res) => {
         }
 
         const category = await new Category({ name: categoryName, slug: slugify(categoryName) });
-        category.save();
+        await category.save();
         if (category) {
             return res.status(201).send({
                 success: true,
