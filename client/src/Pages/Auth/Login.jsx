@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Layout from '../../Layout/Layout'
 import { NavLink, useNavigate } from 'react-router-dom'
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useAuth } from '../../ContextApi/Auth';
+import { authAxios } from '../../authAxios';
 
 const Login = () => {
 
@@ -21,7 +21,7 @@ const Login = () => {
             if (!email) toast.warning("Email is required");
             if (!password) toast.warning("Password is required");
 
-            const { data } = await axios.post(`http://localhost:8000/api/v1/auth/login`, { email, password });
+            const { data } = await authAxios.post(`/api/v1/auth/login`, { email, password });
             console.log(data);
 
             if (data.success) {

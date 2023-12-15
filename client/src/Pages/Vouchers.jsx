@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ContentLayout from '../Layout/ContentLayout'
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import { authAxios } from '../authAxios';
 
 const Vouchers = () => {
   const [voucher, setVoucher] = useState([]);
@@ -9,7 +9,7 @@ const Vouchers = () => {
   const [newVoucherName, setNewVoucherName] = useState('');
 
   const fetchVouchers = async () => {
-    const res = await axios.get(`http://localhost:8000/api/v1/voucher/get-voucher/`);
+    const res = await authAxios.get(`/api/v1/voucher/get-voucher/`);
     if (res.data.success) {
       setVoucher(res.data.vouchers);
     }
@@ -22,7 +22,7 @@ const Vouchers = () => {
       return;
     }
     try {
-      const res = await axios.post(`http://localhost:8000/api/v1/voucher/create-voucher/`, { name: newVoucherName});
+      const res = await authAxios.post(`/api/v1/voucher/create-voucher/`, { name: newVoucherName});
       if (res.data.success) {
         toast.success(res.data.message);
         setNewVoucherName('');
@@ -40,7 +40,7 @@ const Vouchers = () => {
 
   const handleDeleteVoucher = async (voucherSlug) => {
     try {
-      const res = await axios.delete(`http://localhost:8000/api/v1/voucher/delete-voucher/${voucherSlug}`);
+      const res = await authAxios.delete(`/api/v1/voucher/delete-voucher/${voucherSlug}`);
       if (res.data.success) {
         toast.success(res.data.message);
         fetchVouchers();

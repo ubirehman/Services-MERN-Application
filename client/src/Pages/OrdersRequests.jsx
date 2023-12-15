@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import ContentLayout from '../Layout/ContentLayout'
-import axios from 'axios'
 import { toast } from 'react-toastify'
 import io from 'socket.io-client';
+import { authAxios } from '../authAxios';
 
 const OrdersRequests = () => {
     const [serviceOrders, setServiceOrders] = useState([]);
@@ -11,7 +11,7 @@ const OrdersRequests = () => {
 
     const handleFetchServiceRequest = async () => {
         try {
-            const res = await axios.get(`http://localhost:8000/api/v1/services/get-order`);
+            const res = await authAxios.get(`/api/v1/services/get-order`);
             if (res.data.success) {
                 setServiceOrders(res.data.serviceOrderRequests);
             }

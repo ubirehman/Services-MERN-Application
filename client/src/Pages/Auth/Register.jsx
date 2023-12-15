@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Layout from '../../Layout/Layout'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { FaEye } from "react-icons/fa";
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import { authAxios } from '../../authAxios';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Register = () => {
         e.preventDefault();
         try {
             if (name && username && email && password) {
-                const { data } = await axios.post(`http://localhost:8000/api/v1/auth/register`, { name, username, email, password });
+                const { data } = await authAxios.post(`/api/v1/auth/register`, { name, username, email, password });
 
                 if (data.success) {
                     toast.success(data.message);

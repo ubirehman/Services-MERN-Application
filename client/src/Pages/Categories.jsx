@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ContentLayout from '../Layout/ContentLayout'
-import axios from 'axios';
 import { toast } from 'react-toastify';
+import { authAxios } from '../authAxios';
 
 const Categories = () => {
     const [categories, setCategories] = useState([]);
@@ -9,7 +9,7 @@ const Categories = () => {
     const [newCategoryName, setNewCategoryName] = useState('');
 
     const fetchCategories = async () => {
-        const res = await axios.get(`http://localhost:8000/api/v1/category/get-category/`);
+        const res = await authAxios.get(`/api/v1/category/get-category/`);
         if (res.data.success) {
             setCategories(res.data.categories);
         }
@@ -22,7 +22,7 @@ const Categories = () => {
             return;
         }
         try {
-            const res = await axios.post(`http://localhost:8000/api/v1/category/create-category/`, { categoryName: newCategoryName });
+            const res = await authAxios.post(`/api/v1/category/create-category/`, { categoryName: newCategoryName });
             if (res.data.success) {
                 toast.success(res.data.message);
                 fetchCategories();
@@ -40,7 +40,7 @@ const Categories = () => {
 
     const handleDeleteCategory = async (categorySlug) => {
         try {
-            const res = await axios.delete(`http://localhost:8000/api/v1/category/delete-category/${categorySlug}`);
+            const res = await authAxios.delete(`/api/v1/category/delete-category/${categorySlug}`);
             if (res.data.success) {
                 toast.success(res.data.message);
                 fetchCategories();

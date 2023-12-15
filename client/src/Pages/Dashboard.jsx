@@ -7,8 +7,8 @@ import {
     Title,
 } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import axios from 'axios';
 import { Bar } from 'react-chartjs-2';
+import { authAxios } from '../authAxios';
 
 
 const Dashboard = () => {
@@ -18,7 +18,7 @@ const Dashboard = () => {
 
     const fetchServiceOrderStatus = async () => {
         try {
-            const { data } = await axios('http://localhost:8000/api/v1/services/get-order-status');
+            const { data } = await authAxios.get('/api/v1/services/get-order-status');
             if (data.success) {
                 const labels = data.serviceOrderRequestsChart.map(({ _id }) => _id);
                 const counts = data.serviceOrderRequestsChart.map(({ count }) => count);
@@ -32,7 +32,7 @@ const Dashboard = () => {
 
     const fetchRepeatingOrderCustomer = async () => {
         try {
-            const { data } = await axios('http://localhost:8000/api/v1/services/get-order-customers');
+            const { data } = await authAxios.get('/api/v1/services/get-order-customers');
             if (data.success) {
                 const _id = data.orderRepeatingCustomers.map(({ _id }) => _id);
                 const counts = data.orderRepeatingCustomers.map(({ count }) => count);
