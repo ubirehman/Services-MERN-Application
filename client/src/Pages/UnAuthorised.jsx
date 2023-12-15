@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react'
 import Layout from '../Layout/Layout'
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../ContextApi/Auth';
 
 const UnAuthorised = () => {
     const navigate = useNavigate();
+    const auth = useAuth();
 
     useEffect(() => {
-        setTimeout(() => {
-            navigate('/');
-        }, 2000);
+        if (auth.token) {
+            setTimeout(() => {
+                navigate('/');
+            }, 2000);
+        }
     }, [])
 
     return (
